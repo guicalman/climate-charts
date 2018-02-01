@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Chart } from 'chart.js'
+import {ALL_REG_LIST, ALL_REGION_DET} from "../model/mock-regions";
 
 @Component({
   selector: 'app-compare-chart',
@@ -11,15 +12,34 @@ export class CompareChartComponent implements AfterViewInit {
   constructor() { }
 
   chart = [];
+  all_regions_detail = ALL_REGION_DET;
+  MONTHS =["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  years = Object.keys(this.all_regions_detail["UK"]);
+  weather_conditions=['maxT', 'minT', 'meanT']
+  compare_year: string;
+  compare_data: string;
 
   ngAfterViewInit(){
+    this.refreshCompareChart([],[],[],[]);
+  }
+
+  onYearChange(){
+    let uk_data = this.all_regions_detail['UK'][this.compare_year][this.compare_data];
+    let en_data = this.all_regions_detail['England'][this.compare_year][this.compare_data];
+    let wa_data = this.all_regions_detail['Wales'][this.compare_year][this.compare_data];
+    let sc_data = this.all_regions_detail['Scotland'][this.compare_year][this.compare_data];
+    console.log(uk_data);
+    this.refreshCompareChart(uk_data,en_data, wa_data, sc_data);
+  }
+
+  refreshCompareChart(uk_data, en_data, wa_data, sc_data):void{
     //start test code
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let UK = [6.8, 8.2, 9.4, 10.1, 14.6, 17.5, 16.5, 16.4, 15.8, 13.4, 9.5, 6.1 ];
-    let England = [7.7, 8.9, 10.8, 11.1, 16.0, 18.7, 17.7, 17.5, 17.1, 14.2, 9.7, 6.5];
-    let Wales = [7.6, 8.4, 9.3, 10.0, 14.2, 17.3, 16.0, 16.1, 15.8, 13.3, 9.7, 6.4];
-    let Scotland= [5.0, 6.9, 7.3, 8.4, 12.4, 15.9, 14.8, 14.8, 13.8, 12.0, 8.8, 5.2];
-    let all_data_sets= {
+    var months =this.MONTHS;
+    var UK = uk_data;
+    var England = en_data;
+    var Wales = wa_data;
+    var Scotland= sc_data;
+    var all_data_sets= {
       labels: months,
       // Start dataset
       datasets:[
@@ -61,5 +81,4 @@ export class CompareChartComponent implements AfterViewInit {
     };
     this.chart = new Chart('compare-chart', { type: 'bar', data: all_data_sets, options: chart_options });
   }
-
 }

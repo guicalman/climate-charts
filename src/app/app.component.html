@@ -4,11 +4,15 @@
     Welcome to {{ title }}!
   </h1>
 </div>
-<div style="display: flex">
-  <div style="width: 50%; display: inline-block">
+<div>
+  <div class="chart_div">
+    <h3>Temperature Plot for specific region in a year.</h3>
+    <p>Please select a Region an a year.</p>
     <app-climate-chart></app-climate-chart>
   </div>
-  <div style="width: 50%; display: inline-block">
+  <div class="chart_div">
+    <h3>Barchart comparison of temperature variances  </h3>
+    <p>Please select a year to be displayed in the chart.</p>
     <app-compare-chart></app-compare-chart>
   </div>
 </div>

@@ -1,4 +1,11 @@
-<h2>Comparing Temperatures of UK Regions</h2>
 <div>
+  <select id="year_select" [(ngModel)]="compare_year" (change)="onYearChange()">
+    <option disabled selected value> -- Year -- </option>
+    <option *ngFor="let year of years" value="{{ year }}">{{ year }}</option>
+  </select>
+  <select id="data_select" [(ngModel)]="compare_data" (change)="onYearChange()">
+    <option disabled selected value> -- Year -- </option>
+    <option *ngFor="let w_cond of weather_conditions" value="{{ w_cond }}">{{ w_cond }}</option>
+  </select>
   <canvas id="compare-chart"></canvas>
 </div>

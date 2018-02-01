@@ -1,0 +1,9 @@
+div {
+  font-family: Helvetica, sans-serif;
+}
+
+.chart_div{
+  width: 70%;
+  display: block;
+  margin: 3% auto;
+}

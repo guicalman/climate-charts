@@ -1,3 +1,11 @@
 <div>
+  <select id="region_select" [(ngModel)]="selected_region" (change)="onRegionChange()">
+    <option disabled selected value> -- Region -- </option>
+    <option *ngFor="let region of region_list" value="{{region}}">{{region}}</option>
+  </select>
+  <select *ngIf="selected_region" id="year_select" [(ngModel)]="selected_year" (change)="onYearChange()">
+    <option disabled selected value> -- Year -- </option>
+    <option *ngFor="let year of years" value="{{ year }}" (change)="onYearChange(year)">{{ year }}</option>
+  </select>
   <canvas id="weather-chart"></canvas>
 </div>
