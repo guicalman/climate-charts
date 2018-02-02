@@ -9,4 +9,5 @@ import { Chart } from 'chart.js';
 export class AppComponent {
   title = 'UK Climate Charts';
   ngOnInit() {}
+
 }

@@ -3,7 +3,7 @@
     <option disabled selected value> -- Year -- </option>
     <option *ngFor="let year of years" value="{{ year }}">{{ year }}</option>
   </select>
-  <select id="data_select" [(ngModel)]="compare_data" (change)="onYearChange()">
+  <select id="data_select" [(ngModel)]="compare_data" (change)="onConditionChange()">
     <option disabled selected value> -- Year -- </option>
     <option *ngFor="let w_cond of weather_conditions" value="{{ w_cond }}">{{ w_cond }}</option>
   </select>

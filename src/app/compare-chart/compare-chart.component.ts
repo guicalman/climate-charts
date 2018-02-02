@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Chart } from 'chart.js'
 import {ALL_REG_LIST, ALL_REGION_DET} from "../model/mock-regions";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-compare-chart',
@@ -9,27 +10,35 @@ import {ALL_REG_LIST, ALL_REGION_DET} from "../model/mock-regions";
 })
 export class CompareChartComponent implements AfterViewInit {
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
 
   chart = [];
   all_regions_detail = ALL_REGION_DET;
   MONTHS =["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  years = Object.keys(this.all_regions_detail["UK"]);
+  years = [];
   weather_conditions=['maxT', 'minT', 'meanT']
   compare_year: string;
   compare_data: string;
 
   ngAfterViewInit(){
+    this._http.get("http://127.0.0.1:5000/years").subscribe(y_data => {
+      this.years = y_data['years'];
+    });
     this.refreshCompareChart([],[],[],[]);
   }
 
   onYearChange(){
-    let uk_data = this.all_regions_detail['UK'][this.compare_year][this.compare_data];
-    let en_data = this.all_regions_detail['England'][this.compare_year][this.compare_data];
-    let wa_data = this.all_regions_detail['Wales'][this.compare_year][this.compare_data];
-    let sc_data = this.all_regions_detail['Scotland'][this.compare_year][this.compare_data];
-    console.log(uk_data);
-    this.refreshCompareChart(uk_data,en_data, wa_data, sc_data);
+    this._http.get("http://127.0.0.1:5000/conditions").subscribe(y_data => {
+      this.weather_conditions = y_data['conditions'];
+    });
+  }
+  onConditionChange(){
+    let url_api="http://127.0.0.1:5000/compare/"+this.compare_year+"/"+this.compare_data;
+    console.log(url_api);
+    this._http.get(url_api).subscribe(temp_data => {
+      this.refreshCompareChart(temp_data['UK'], temp_data['England'], temp_data['Wales'], temp_data['Scotland']);
+    });
+
   }
 
   refreshCompareChart(uk_data, en_data, wa_data, sc_data):void{
