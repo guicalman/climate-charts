@@ -7,13 +7,13 @@ export class ClimateService {
 
   constructor(private _http: HttpClient) { }
   climateRegions(){
-    return this._http.get("http://127.0.0.1:5000/");
+    return this._http.get("https://uk-climate-api.herokuapp.com/");
   }
   climateDataRegionYear(region:String, year:String){
-    return this._http.get("http://127.0.0.1:5000/temperature/"+region+"/"+year);
+    return this._http.get("https://uk-climate-api.herokuapp.com/temperature/"+region+"/"+year);
   }
   compareYearCondition(year:String, condition:String){
-    return this._http.get("http://127.0.0.1:5000/compare/"+ year +"/"+ condition);
+    return this._http.get("https://uk-climate-api.herokuapp.com/compare/"+ year +"/"+ condition);
   }
 
 }

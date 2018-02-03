@@ -21,19 +21,19 @@ export class CompareChartComponent implements AfterViewInit {
   compare_data: string;
 
   ngAfterViewInit(){
-    this._http.get("http://127.0.0.1:5000/years").subscribe(y_data => {
+    this._http.get("https://uk-climate-api.herokuapp.com/years").subscribe(y_data => {
       this.years = y_data['years'];
     });
     this.refreshCompareChart([],[],[],[]);
   }
 
   onYearChange(){
-    this._http.get("http://127.0.0.1:5000/conditions").subscribe(y_data => {
+    this._http.get("https://uk-climate-api.herokuapp.com/conditions").subscribe(y_data => {
       this.weather_conditions = y_data['conditions'];
     });
   }
   onConditionChange(){
-    let url_api="http://127.0.0.1:5000/compare/"+this.compare_year+"/"+this.compare_data;
+    let url_api="https://uk-climate-api.herokuapp.com/compare/"+this.compare_year+"/"+this.compare_data;
     console.log(url_api);
     this._http.get(url_api).subscribe(temp_data => {
       this.refreshCompareChart(temp_data['UK'], temp_data['England'], temp_data['Wales'], temp_data['Scotland']);

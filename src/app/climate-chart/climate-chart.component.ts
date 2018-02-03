@@ -23,19 +23,19 @@ export class ClimateChartComponent implements  AfterViewInit{
   constructor(private _http: HttpClient) { }
 
   ngAfterViewInit(){
-    this._http.get("http://127.0.0.1:5000/").subscribe(reg_data => {
+    this._http.get("https://uk-climate-api.herokuapp.com/").subscribe(reg_data => {
       this.region_list = reg_data['regions'];
     });
     this.refreshClimateChart([],[],[]);
   }
   onRegionChange(){
-    this._http.get("http://127.0.0.1:5000/years").subscribe(y_data => {
+    this._http.get("https://uk-climate-api.herokuapp.com/years").subscribe(y_data => {
       this.years = y_data['years'];
     });
   }
 
   onYearChange(){
-    let url_api="http://127.0.0.1:5000/temperature/"+this.selected_region+"/"+this.sel_year;
+    let url_api="https://uk-climate-api.herokuapp.com/temperature/"+this.selected_region+"/"+this.sel_year;
     console.log(url_api);
     this._http.get(url_api).subscribe(temp_data => {
       this.refreshClimateChart(temp_data['Tmin'], temp_data['Tmax'], temp_data['Tmean']);
