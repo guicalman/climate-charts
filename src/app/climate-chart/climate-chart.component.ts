@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class ClimateChartComponent implements  AfterViewInit{
   chart = [];
   MONTHS =["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  region_list = ALL_REG_LIST;
+  region_list = [];
   selected_region: string;
   update_data: any;
   maxT=[];
